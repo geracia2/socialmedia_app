@@ -1,4 +1,4 @@
-const Post = require("../models/postModel");
+const Post = require("../models/postsModel");
 const Comment = require("../models/commentModel");
 
 // ==CREATE==
