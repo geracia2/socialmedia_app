@@ -69,7 +69,7 @@ module.exports.update = async (req, res) => {
     console.log("with this body: ", req.body);
     await Posts.findByIdAndUpdate(req.params.id, req.body);
     // noting sent back? send something or it will hang
-    res.send('update was successful')
+    res.status(200).send('update was successful')
     // redirect on client side
   } catch (err) {
     console.log(err.message);
