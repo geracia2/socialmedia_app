@@ -4,10 +4,11 @@ const router = express.Router()
 
 const commentControl = require('../controllers/commentController')
 
-// index
+// index [http://localhost:8080/comments/:postId] postId used to populate with ref
+// Post.findById(req.params.postId).populate("comments");
 router.get('/:postId', commentControl.index)
 
-// delete
+// delete [http://localhost:8080/comments/:postId/:commentId]
 router.delete('/:postId/:commentId', commentControl.delete)
 
 // update

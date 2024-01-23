@@ -3,6 +3,8 @@ const cors = require('cors')
 require('dotenv').config()
 const mongoConfig = require('./config')
 const postsRoutes = require('./routes/postsRoutes')
+const commentRoutes = require('./routes/commentRoutes')
+
 
 mongoConfig()
 
@@ -24,7 +26,11 @@ app.use(express.json())
 // add middleware before route, this also grabs req.body/params
 // you could also put them inside specific routes inside the routes folder
 // app.use('/api/users', authorize, userRoutes)
+
+// [http://localhost:8080/posts]
 app.use('/posts', postsRoutes)
+// [http://localhost:8080/comments]
+app.use('/comments', commentRoutes)
 
 app.listen(PORT, () => {
     console.log('Listening on port: ' + PORT)
