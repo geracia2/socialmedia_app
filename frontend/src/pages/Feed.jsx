@@ -24,25 +24,28 @@ function Feed() {
     getData();
   }, []);
 
-  // C in CRUD
-  async function addToList() {
-    let post = { text: input };
-    try {
-      const response = await axios.post("/posts", post);
+  // // C in CRUD
+  // async function addToList() {
+  //   let post = { text: input };
+  //   try {
+  //     const response = await axios.post("/posts", post);
 
-      setPost([...post, response.data]);
-      setInput("");
-    } catch (err) {
-      console.log(err);
-    }
-  }
+  //     setPost([...post, response.data]);
+  //     setInput("");
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }
   return (
     <>
-    {post.map((post, i)=>(
-      <Fragment key={post._id}>
-      </Fragment>
-    ))}
       <section>Feed</section>
+      {post &&
+        post.map((post, i) => (
+          <Fragment key={post._id}>
+            <h1>{post.subject}</h1>
+            <h4>{post.body}</h4>
+          </Fragment>
+        ))}
     </>
   );
 }
