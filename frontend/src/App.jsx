@@ -5,7 +5,7 @@ import Navbar from './components/Navbar';
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import Register from "./pages/Register";
-import Home from "./pages/Home";
+import Feed from "./pages/Feed";
 
 function App() {
 
@@ -13,7 +13,7 @@ function App() {
     <section className='app'>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Feed />} />
         <Route path='/login' element={<Login />} />
         <Route path='/profile' element={<Profile />} />
         <Route path='/register' element={<Register />} />

@@ -1,7 +1,7 @@
-// const express = require('express')
-// const router = express.Router()
-// const userCtrl = require('../controllers/userController')
+const express = require('express')
+const router = express.Router()
+const userCtrl = require('../controllers/userController')
 
-// router.get('/', userCtrl.show)
+router.get('/', userCtrl.show)
 
-// module.exports = router 
+module.exports = router 

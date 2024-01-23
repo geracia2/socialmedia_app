@@ -1,25 +1,25 @@
-const express = require('express')
-const cors = require('cors')
-require('dotenv').config()
-const mongoConfig = require('./config')
-const postsRoutes = require('./routes/postsRoutes')
-const commentRoutes = require('./routes/commentRoutes')
+const express = require("express");
+const cors = require("cors");
+require("dotenv").config();
+const mongoConfig = require("./config");
+const postsRoutes = require("./routes/postsRoutes");
+const commentRoutes = require("./routes/commentRoutes");
+const authRoutes = require("./routes/authRoutes");
+const userRoute = require('./routes/userRoute')
 
-
-mongoConfig()
+mongoConfig();
 
 // const authRoutes = require('./routes/authRoutes')
 // const userRoutes = require('./routes/userRoutes')
 // // middleware
 // const { authorize } = require('./middleware/authMiddleware')
 
-const app = express()
+const app = express();
 
-const PORT = process.env.PORT //8080
+const PORT = process.env.PORT; //8080
 
-app.use(cors())
-app.use(express.json())
-
+app.use(cors());
+app.use(express.json());
 
 // login point
 // app.use('/auth', authRoutes) // not using yet
@@ -28,19 +28,24 @@ app.use(express.json())
 // app.use('/api/users', authorize, userRoutes)
 
 // [http://localhost:8080/posts]
-app.use('/posts', postsRoutes)
+app.use("/posts", postsRoutes);
 // [http://localhost:8080/comments]
-app.use('/comments', commentRoutes)
+app.use("/comments", commentRoutes);
+
+//added by auth-team*******
+app.use("/login", authRoutes);
+
+app.use("/user", userRoute);
+//****** */
 
 app.listen(PORT, () => {
-    console.log('Listening on port: ' + PORT)
-})
+  console.log("Listening on port: " + PORT);
+});
 
 // things to do:
-//  + connect to MongoDB 
+//  + connect to MongoDB
 //  + Schema and model for Posts
-//  make routes for post/comments 
-    // RESTFUL Routes
+//  make routes for post/comments
+// RESTFUL Routes
 //  make routes for user/authentication
-// 
-
+//
