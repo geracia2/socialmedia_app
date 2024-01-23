@@ -17,10 +17,10 @@ router.post("/", postControl.create);
 // ===DELETE== [http://localhost:8080/posts/:id] :: DELETE available: req.params.id
 router.delete("/:id", postControl.delete);
 
-// ===UPDATE=== :: PUT available: req.params.id, req.body
+// ===UPDATE=== [http://localhost:8080/posts/:id] :: PUT available: req.params.id, req.body
 router.put("/:id", postControl.update);
 
-// ===SHOW=== :: GET available: req.params.id
+// ===SHOW=== [http://localhost:8080/posts/:id] :: GET available: req.params.id
 router.get('/:id', postControl.show)
 
 module.exports = router;

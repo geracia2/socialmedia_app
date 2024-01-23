@@ -2,6 +2,7 @@ const Posts = require("../models/postsModel");
 const Comment = require("../models/commentModel");
 const postsSeed = require("../models/postsSeed");
 
+// ==SEED==
 module.exports.seed = async (req, res) => {
   try {
     await Posts.deleteMany({});
@@ -26,12 +27,25 @@ module.exports.seed = async (req, res) => {
   res.redirect("/posts");
 };
 
+// ==INDEX== [http://localhost:8080/posts/] :: GET available: use model
 // display all posts
 module.exports.index = async (req, res) => {
   const posts = await Posts.find().sort({ createdAt: 1 });
-  res.render("posts/Index", { posts });
+  res.json({ posts });
 };
 
+// ===CREATE== [http://localhost:8080/posts/] ::  POST available: req.body
+module.exports.create = async (req, res) => {
+  console.log(req.body);
+  try {
+    await Posts.create(req.body);
+    res.redirect("/posts");
+  } catch (err) {
+    res.send(err.message);
+  }
+};
+
+// ===DELETE== [http://localhost:8080/posts/:id] :: DELETE available: req.params.id
 module.exports.delete = async (req, res) => {
   try {
     const posts = await Posts.findByIdAndDelete(req.params.id);
@@ -47,21 +61,13 @@ module.exports.delete = async (req, res) => {
   res.redirect("/posts");
 };
 
+// ===UPDATE=== [http://localhost:8080/posts/:id] :: PUT available: req.params.id, req.body
 module.exports.update = async (req, res) => {
   await Posts.findByIdAndUpdate(req.params.id, req.body);
   res.redirect(`/posts/${req.params.id}`);
 };
 
-module.exports.create = async (req, res) => {
-  console.log(req.body);
-  try {
-    await Posts.create(req.body);
-    res.redirect("/posts");
-  } catch (err) {
-    res.send(err.message);
-  }
-};
-
+// ===SHOW=== [http://localhost:8080/posts/:id] :: GET available: req.params.id
 // open post, populate with ref. comments
 module.exports.show = async (req, res) => {
   const post = await Posts.findById(req.params.id).populate("comments");
