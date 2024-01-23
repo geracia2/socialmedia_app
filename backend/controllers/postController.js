@@ -58,19 +58,33 @@ module.exports.delete = async (req, res) => {
   } catch (err) {
     console.log(err.message);
   }
-  res.redirect("/posts");
+  // res.redirect("/posts");
 };
 
 // ===UPDATE=== [http://localhost:8080/posts/:id] :: PUT available: req.params.id, req.body
 module.exports.update = async (req, res) => {
-  await Posts.findByIdAndUpdate(req.params.id, req.body);
-  res.redirect(`/posts/${req.params.id}`);
+  try {
+    console.log("PUT  /posts/:id");
+    console.log("you are changing: ", req.params.id);
+    console.log("with this body: ", req.body);
+    await Posts.findByIdAndUpdate(req.params.id, req.body);
+    // noting sent back? send something or it will hang
+    res.send('update was successful')
+    // redirect on client side
+  } catch (err) {
+    console.log(err.message);
+    res.status(400).json({ error: err.message });
+  }
 };
 
 // ===SHOW=== [http://localhost:8080/posts/:id] :: GET available: req.params.id
 // open post, populate with ref. comments
 module.exports.show = async (req, res) => {
-  const post = await Posts.findById(req.params.id).populate("comments");
-  console.log(post);
-  res.render("posts/Show", { post });
+  try {
+    const post = await Posts.findById(req.params.id).populate("comments");
+    console.log(post);
+    res.status(200).json(post)
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
 };
